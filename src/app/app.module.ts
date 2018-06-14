@@ -4,15 +4,15 @@ import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { AddTaskComponent } from './add-task/add-task.component';
-import { TasksComponent } from './tasks/tasks.component';
-import { ActionButtonsComponent } from './action-buttons/action-buttons.component';
+import { TodoTasksComponent } from './todo-tasks/todo-tasks.component';
+import { DoneTasksComponent } from './done-tasks/done-tasks.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AddTaskComponent,
-    TasksComponent,
-    ActionButtonsComponent
+    TodoTasksComponent,
+    DoneTasksComponent
   ],
   imports: [
     BrowserModule,

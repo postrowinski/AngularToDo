@@ -1,0 +1,18 @@
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 15px 0;
+}
+
+.btn {
+  width: 40px;
+}
+
+.btn-success {
+  margin-right: 6px;
+}
+
+.todo-counter {
+  color: #ff7463;
+}

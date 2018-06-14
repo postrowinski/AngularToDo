@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { TASKS } from './moc-tasks';
 
 @Component({
   selector: 'app-root',
@@ -6,16 +7,17 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title: string = 'Tasks';
-  counter: number = 0;
-  emptyTasks: string = 'Your tasks is empty';
+  title = 'Tasks';
+  tasks: string[] = TASKS;
 
-  increment(): void {
-    this.counter++;
+  addTask(task: string): void {
+    this.tasks.push(task);
   }
-  decrement(): void {
-    if (this.counter > 0) {
-      this.counter--;
-    }
+  removeAll(e: string[]): void {
+    this.tasks = [];
+  }
+
+  remove(e: number): string[] {
+    return this.tasks = this.tasks.filter((item, index) => index !== e);
   }
 }
