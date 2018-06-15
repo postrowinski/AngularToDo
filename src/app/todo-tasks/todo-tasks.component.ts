@@ -8,13 +8,18 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 
 export class TodoTasksComponent {
   @Input() tasks;
-  @Output() emitTodoTasks = new EventEmitter<number>();
+  @Output() emitRemove = new EventEmitter<number>();
+  @Output() emitDone = new EventEmitter<Object>();
 
   remove(i: number): void {
-    this.emitTodoTasks.emit(i);
+    this.emitRemove.emit(i);
   }
 
-  addClass() {
+  done(task: string, i: number) {
+    this.emitDone.emit({task: task, i: i});
+  }
+
+  addListItem(): string {
     return this.tasks.length > 3 ? 'list-group-item-danger' : 'list-group-item-success';
   }
 }

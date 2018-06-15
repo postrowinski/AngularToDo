@@ -1,1 +1,17 @@
-<h3>Done Tasks</h3>
+<h3>
+  Done Tasks <span *ngIf="doneTasks.length > 0" class="done-counter">({{ doneTasks.length }})</span>
+</h3>
+<ul *ngIf="doneTasks.length > 0; else doneTasksLessThenThree" class="list-group">
+  <li *ngFor="let task of doneTasks; let i = index" class="list-group-item">
+    <span>{{task}}</span>
+    <div>
+      <button class="btn btn-danger" (click)="removeDone(i)">
+        <i class="fa fa-remove"></i>
+      </button>
+    </div>
+  </li>
+</ul>
+
+<ng-template #doneTasksLessThenThree>
+  <p>No tasks todo</p>
+</ng-template>
