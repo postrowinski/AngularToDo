@@ -8,6 +8,7 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 
 export class TodoTasksComponent {
   @Input() tasks;
+  @Input() limit;
   @Output() emitRemove = new EventEmitter<number>();
   @Output() emitDone = new EventEmitter<Object>();
 
@@ -21,5 +22,9 @@ export class TodoTasksComponent {
 
   addListItem(): string {
     return this.tasks.length > 3 ? 'list-group-item-danger' : 'list-group-item-success';
+  }
+
+  progressWidth(): string {
+    return `${this.tasks.length * 10}%`;
   }
 }

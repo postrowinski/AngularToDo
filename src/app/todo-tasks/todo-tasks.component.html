@@ -1,19 +1,23 @@
-<h3>ToDo Tasks
-  <span *ngIf="tasks.length > 0" class="todo-counter">({{ tasks.length }})</span>
-</h3>
-<ul *ngIf="tasks.length > 0; else tasksLessThenTree" class="list-group">
-  <li *ngFor="let task of tasks; let i = index" class="list-group-item" [ngClass]="addListItem()">
-    <span>{{task}} </span>
-    <div>
-      <button class="btn btn-success" (click)="done(task, i)" >
-        <i class="fa fa-check"></i>
-      </button>
-      <button class="btn btn-danger" (click)="remove(i)">
-        <i class="fa fa-remove"></i>
-      </button>
-    </div>
-  </li>
-</ul>
+<h3>ToDo Tasks</h3>
+<ng-container *ngIf="tasks.length > 0; else tasksLessThenTree">
+  <div class="c-progress text-center">
+    {{tasks.length}} / {{limit}}
+    <div class="c-progress__bar c-progress__bar--todo" [ngStyle]="{'width': progressWidth()}"></div>
+  </div>
+  <ul  class="list-group">
+    <li *ngFor="let task of tasks; let i = index" class="list-group-item" [ngClass]="addListItem()">
+      <span>{{task}} </span>
+      <div>
+        <button class="btn btn-success" (click)="done(task, i)" >
+          <i class="fa fa-check"></i>
+        </button>
+        <button class="btn btn-danger" (click)="remove(i)">
+          <i class="fa fa-remove"></i>
+        </button>
+      </div>
+    </li>
+  </ul>
+</ng-container>
 
 <ng-template #tasksLessThenTree>
   <p>No tasks todo</p>

@@ -10,9 +10,12 @@ export class AppComponent {
   title = 'Tasks';
   tasks: string[] = TASKS;
   doneTasks: string[] = [];
+  limit = 10;
 
   addTask(task: string): void {
-    this.tasks.push(task);
+    if (this.tasks.length < this.limit) {
+      this.tasks.push(task);
+    }
   }
   removeAll(): void {
     this.tasks = [];
@@ -20,8 +23,10 @@ export class AppComponent {
   }
 
   done(e): string[] {
-    this.doneTasks.push(e.task);
-    return this.tasks = this.tasks.filter((item, index) => index !== e.i);
+    if (this.doneTasks.length < this.limit) {
+      this.doneTasks.push(e.task);
+      return this.tasks = this.tasks.filter((item, index) => index !== e.i);
+    }
   }
 
   remove(e: number): string[] {

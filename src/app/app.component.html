@@ -1,14 +1,14 @@
 <div class="container">
-  <h2 class="text-center">
+  <h1 class="text-center">
     {{title | uppercase }}
-  </h2>
+  </h1>
   <app-add-task (emitTask)="addTask($event)" (emitRemoveAll)="removeAll()"></app-add-task>
   <div class="row">
     <div class="col-md-offset-2 col-md-4">
-      <app-todo-tasks (emitRemove)="remove($event)" (emitDone)="done($event)" [tasks]="tasks"></app-todo-tasks>
+      <app-todo-tasks (emitRemove)="remove($event)" (emitDone)="done($event)" [tasks]="tasks" [limit]="limit"></app-todo-tasks>
     </div>
     <div class="col-md-4">
-      <app-done-tasks (emitRemove)="removeDone($event)" [doneTasks]="doneTasks"></app-done-tasks>
+      <app-done-tasks (emitRemove)="removeDone($event)" [doneTasks]="doneTasks" [limit]="limit"></app-done-tasks>
     </div>
   </div>
 </div>

@@ -1,6 +1,31 @@
 @import url('https://fonts.googleapis.com/css?family=Signika');
+$progress-bar__background--todo: #ff9f8d;
+$progress-bar__background--done: #41e252;
 
 body {
   font-family: 'Signika', sans-serif;
   background: #F5F5F5;
 }
+
+.c-progress {
+  line-height: 40px;
+  font-size: 20px;
+  border: 1px solid black;
+  position: relative;
+  &__bar {
+    top: 0;
+    left: 0;
+    position: absolute;
+    height: 100%;
+    transition: width 0.4s;
+    z-index: -1;
+    &--todo {
+      background: $progress-bar__background--todo;
+    }
+    &--done {
+      background: $progress-bar__background--done;
+    }
+  }
+}
+
+
