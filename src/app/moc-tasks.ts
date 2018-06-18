@@ -1,5 +1,5 @@
 export const TASKS: string[] = [
-  'Apples',
-  'Bananas',
-  'Oranges'
+  'Go to work',
+  'Create apps',
+  'Sleep'
 ];

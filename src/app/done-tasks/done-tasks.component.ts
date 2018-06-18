@@ -1,13 +1,26 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {animate, state, style, transition, trigger} from '@angular/animations';
 
 @Component({
   selector: 'app-done-tasks',
   templateUrl: './done-tasks.component.html',
-  styleUrls: ['./done-tasks.component.scss', '../todo-tasks/todo-tasks.component.scss']
+  styleUrls: ['./done-tasks.component.scss', '../todo-tasks/todo-tasks.component.scss'],
+  animations: [
+    trigger('flyInOut', [
+      state('in', style({transform: 'translateX(0)'})),
+      transition('void => *', [
+        style({transform: 'translateX(-100%)'}),
+        animate(300)
+      ]),
+      transition('* => void', [
+        animate(300, style({transform: 'translateX(100%)'}))
+      ])
+    ])
+  ]
 })
 export class DoneTasksComponent {
-  @Input() limit;
   @Input() doneTasks;
+  @Input() tasks;
   @Output() emitRemove = new EventEmitter<number>();
 
   removeDone(i: number): void {
@@ -19,6 +32,8 @@ export class DoneTasksComponent {
   }
 
   progressWidth(): string {
-    return `${this.doneTasks.length * 10}%`;
+    const doneLength: number = this.doneTasks.length;
+    const todoLength: number = this.tasks.length;
+    return `${(doneLength / (doneLength + todoLength)) * 100}%`;
   }
 }

@@ -4,11 +4,14 @@
     {{tasks.length}} / {{limit}}
     <div class="c-progress__bar c-progress__bar--todo" [ngStyle]="{'width': progressWidth()}"></div>
   </div>
-  <ul  class="list-group">
-    <li *ngFor="let task of tasks; let i = index" class="list-group-item" [ngClass]="addListItem()">
+  <ul class="list-group">
+    <li *ngFor="let task of tasks; let i = index"
+        class="list-group-item"
+        [ngClass]="addListItem()"
+        [@flyInOut]="'in'">
       <span>{{task}} </span>
       <div>
-        <button class="btn btn-success" (click)="done(task, i)" >
+        <button class="btn btn-success" (click)="done(task, i)">
           <i class="fa fa-check"></i>
         </button>
         <button class="btn btn-danger" (click)="remove(i)">

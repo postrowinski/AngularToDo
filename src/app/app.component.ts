@@ -1,31 +1,41 @@
-import { Component } from '@angular/core';
-import { TASKS } from './moc-tasks';
+import {Component} from '@angular/core';
+import {TASKS} from './moc-tasks';
+import {Task} from './task';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
   title = 'Tasks';
   tasks: string[] = TASKS;
   doneTasks: string[] = [];
-  limit = 10;
+  tasksLimit = 10;
+  taskError = false;
 
   addTask(task: string): void {
-    if (this.tasks.length < this.limit) {
-      this.tasks.push(task);
+    const tasks = this.tasks;
+    if (task === '' || tasks.includes(task)) {
+      this.taskError = true;
+      return null;
+    }
+    if (tasks.length < this.tasksLimit) {
+      this.taskError = false;
+      tasks.unshift(task);
     }
   }
+
   removeAll(): void {
     this.tasks = [];
     this.doneTasks = [];
+    this.taskError = false;
   }
 
-  done(e): string[] {
-    if (this.doneTasks.length < this.limit) {
-      this.doneTasks.push(e.task);
-      return this.tasks = this.tasks.filter((item, index) => index !== e.i);
+  done(task: Task): string[] {
+    if (!this.doneTasks.includes(task.value)) {
+      this.doneTasks.unshift(task.value);
+      return this.tasks = this.tasks.filter((item, index) => index !== task.position);
     }
   }
 
