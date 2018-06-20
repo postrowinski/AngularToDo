@@ -18,7 +18,7 @@ export class AppComponent {
     const tasks = this.tasks;
     if (task === '' || tasks.includes(task)) {
       this.taskError = true;
-      return null;
+      return;
     }
     if (tasks.length < this.tasksLimit) {
       this.taskError = false;
