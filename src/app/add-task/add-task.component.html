@@ -5,9 +5,9 @@
       <input [(ngModel)]="task" class="form-control" maxlength="12">
       <span class="input-group-btn">
         <button class="btn btn-primary" type="button" (click)="add(task)">Add</button>
-        <button class="btn btn-danger" type="button" (click)="removeAll(tasks)">Clear All</button>
+        <button class="btn btn-danger" type="button" (click)="clearAll()">Clear All</button>
       </span>
     </div>
-    <div [ngStyle]="{'opacity': showError ? 1 : 0, 'transition': '0.3s'}" class="label label-warning">{{errorMsg}}</div>
+    <div [ngStyle]="{'opacity': taskError ? 1 : 0, 'transition': '0.3s'}" class="label label-warning">{{errorMsg}}</div>
   </div>
 </div>

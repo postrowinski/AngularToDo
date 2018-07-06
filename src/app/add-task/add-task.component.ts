@@ -1,25 +1,37 @@
-import {Component, EventEmitter, Output, Input} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {TasksService} from '../tasks.service';
 
 @Component({
   selector: 'app-add-task',
   templateUrl: './add-task.component.html',
   styleUrls: ['./add-task.component.scss']
 })
-export class AddTaskComponent {
-  @Output() emitTask = new EventEmitter<string>();
-  @Input() tasks: string[];
-  @Output() emitRemoveAll = new EventEmitter();
-  @Input() showError: boolean;
-
+export class AddTaskComponent implements OnInit {
   errorMsg = 'Pole nie może się powtarzać lub być pustę';
-  task: string;
 
-  add(task: string = ''): void {
-    this.emitTask.emit(task);
-    this.task = '';
+  task = '';
+
+  taskError: boolean;
+
+  constructor(private tasksService: TasksService) {}
+
+  ngOnInit() {
+    this.getTaskError();
   }
 
-  removeAll(e: string[]): void {
-    this.emitRemoveAll.emit(e);
+  add(task: string = ''): void {
+    this.tasksService.add(task);
+    this.task = '';
+    this.getTaskError();
+  }
+
+  clearAll() {
+    this.taskError = false;
+    this.task = '';
+    this.tasksService.clearAll();
+  }
+
+  getTaskError() {
+    this.tasksService.getTasksError().subscribe(data => this.taskError = data);
   }
 }

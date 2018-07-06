@@ -1,5 +1,6 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, DoCheck, OnInit} from '@angular/core';
 import {animate, state, style, transition, trigger} from '@angular/animations';
+import {TasksService} from '../tasks.service';
 
 @Component({
   selector: 'app-done-tasks',
@@ -18,13 +19,34 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
     ])
   ]
 })
-export class DoneTasksComponent {
-  @Input() doneTasks;
-  @Input() tasks;
-  @Output() emitRemove = new EventEmitter<number>();
+export class DoneTasksComponent implements OnInit, DoCheck {
+
+  tasks: string[];
+
+  doneTasks: string[];
+
+  constructor(private tasksService: TasksService) {}
+
+  ngOnInit() {
+    this.getDoneTasks();
+    this.getTodoTasks();
+  }
+
+  ngDoCheck() {
+    this.getDoneTasks();
+    this.getTodoTasks();
+  }
+
+  getTodoTasks() {
+    this.tasksService.getTodoTasks().subscribe(data => this.tasks = data);
+  }
+
+  getDoneTasks(): void {
+    this.tasksService.getDoneTasks().subscribe(data => this.doneTasks = data);
+  }
 
   removeDone(i: number): void {
-    this.emitRemove.emit(i);
+    this.tasksService.removeDone(i).subscribe(data => this.doneTasks = data);
   }
 
   quantityColor(): string {

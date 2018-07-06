@@ -3,13 +3,13 @@
   <h1 class="text-center">
     {{title | uppercase }}
   </h1>
-  <app-add-task (emitTask)="addTask($event)" (emitRemoveAll)="removeAll()" [showError]="taskError"></app-add-task>
+  <app-add-task></app-add-task>
   <div class="row">
     <div class="col-md-offset-2 col-md-4">
-      <app-todo-tasks (emitRemove)="remove($event)" (emitDone)="done($event)" [tasks]="tasks" [limit]="tasksLimit"></app-todo-tasks>
+      <app-todo-tasks></app-todo-tasks>
     </div>
     <div class="col-md-4">
-      <app-done-tasks (emitRemove)="removeDone($event)" [doneTasks]="doneTasks" [tasks]="tasks"></app-done-tasks>
+      <app-done-tasks></app-done-tasks>
     </div>
   </div>
 </div>

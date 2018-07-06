@@ -1,6 +1,7 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, DoCheck, OnInit} from '@angular/core';
 import {trigger, state, style, animate, transition} from '@angular/animations';
-import {Task} from '../task';
+
+import {TasksService} from '../tasks.service';
 
 @Component({
   selector: 'app-todo-tasks',
@@ -20,18 +21,39 @@ import {Task} from '../task';
   ]
 })
 
-export class TodoTasksComponent {
-  @Input() tasks;
-  @Input() limit;
-  @Output() emitRemove = new EventEmitter<number>();
-  @Output() emitDone = new EventEmitter<Task>();
+export class TodoTasksComponent implements OnInit, DoCheck {
+  tasks: string[];
 
-  remove(i: number): void {
-    this.emitRemove.emit(i);
+  todoTasks: string[];
+
+  limit = 10;
+
+  constructor(public tasksService: TasksService) { }
+
+  ngOnInit() {
+    this.getTodoTasks();
+    this.getDoneTasks();
   }
 
-  done(task: string, i: number): void {
-    this.emitDone.emit({value: task, position: i});
+  ngDoCheck() {
+    this.getTodoTasks();
+    this.getDoneTasks();
+  }
+
+  getTodoTasks() {
+    this.tasksService.getTodoTasks().subscribe(data => this.tasks = data);
+  }
+
+  getDoneTasks() {
+    this.tasksService.getDoneTasks().subscribe(data => this.todoTasks = data);
+  }
+
+  remove(i: number): void {
+    this.tasksService.removeTodo(i).subscribe(data => this.tasks = data);
+  }
+
+  doneTodo(task: string, i: number): void {
+    this.tasksService.doneTodo(task, i).subscribe(data => this.tasks = data);
   }
 
   addListItem(): string {
